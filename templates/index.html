@@ -64,7 +64,7 @@
             <div class="col-md-6" style="margin:0 auto;">
                 <h1 class="h1-responsive" style="margin: 0 auto;text-align: center;">Search</h1>
                 <hr>
-                <form class="text-center border border-light p-5" action="{% url "search" %}" method="POST">
+                <form class="text-center border border-light p-5" action="{% url "search" %}" method="POST" autocomplete="off">
                     {% csrf_token %}
                     <input type="text" id="query" name="query" class="form-control mb-4"
                         placeholder="Enter the location">
