@@ -20,3 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('weatherapp.urls'))
 ]
+
+handler404 = 'weatherapp.views.error_404_view'
