@@ -20,7 +20,7 @@ def index(request):
 def search(request):
     if request.method == "GET":
         try:
-            city=request.GET['cities']
+            city=request.GET['city']
             print(city)
             API_KEY="3891916b2f364e56d63c5d9ee9a57228"
             urlPart1 = "https://api.openweathermap.org/data/2.5/weather?appid="+str(API_KEY)

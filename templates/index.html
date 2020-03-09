@@ -1,56 +1,43 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>{% block title %}Index{% endblock %}</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
-        rel="stylesheet" />
-    <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet" />
-    <!-- Custom Stylesheet -->
-    <link href="index.css" rel="stylesheet" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+      <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+
+    <title>Django Weather App</title>
 </head>
 
 <body>
-    <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-light ">
-        <!-- Navbar brand -->
-        <a class="navbar-brand" href="#">Django Weather App</a>
-
-        <!-- Collapse button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Collapsible content -->
-        <div class="collapse navbar-collapse" id="basicExampleNav">
-            <!-- Links -->
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#search">Search </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">About</a>
-                </li>
-            </ul>
-            <!-- Links -->
-        </div>
-        <!-- Collapsible content -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 1rem;">
+        <h1 class="navbar-brand" style="text-align: center;margin: 0 auto">Django Weather App</h1>
     </nav>
-    <!--/.Navbar-->
+
     {% if error == True %}
-    <div class="container-fluid" id="error" style="margin-top: 1rem;">
+    <div class="container-fluid" id="error" style="margin-top: 1rem;margin-bottom: 1rem;">
         <div class="row">
             <div class="alert alert-danger alert-dismissible fade show col-md-6" role="alert" style="margin:0 auto;">
-                <p>No Such location found / Location Missing In Our Database</p>
+                <p>No Such Location Found / Location Missing In Our Database</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="container-fluid" id="error" style="margin-top: 1rem;margin-bottom: 1rem;">
+        <div class="row">
+            <div class="alert alert-success alert-dismissible fade show col-md-6" role="alert" style="margin:0 auto;">
+                <p>Result Found ! Scroll Below To View</p>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -59,35 +46,39 @@
     </div>
     {% endif %}
 
-    <div class="container-fluid" id="search" style="margin-top: 1rem;">
-        <div class="row">
-            <div class="col-md-3" style="margin:0 auto;">
-                <h6 class="h6-responsive" style="margin: 0 auto;text-align: center;">Search between 1000+ Indian Cities</>
-                <hr>
-                
-                <form class="text-center border border-light p-5" action="{% url "search" %}" method="GET">
-                    <input list="cities" name="cities" class="form-control">
-                    <datalist id="cities">
+    <div class="col-md-6" style="margin: 0 auto;">
+        <img src="{% static 'index.jpg' %}" class="card-img-top" alt="...">
+        <form action="{% url 'search' %}" method="GET">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" style="text-align: center;">Search for Indian Weather</h5>
+                <p class="card-text" style="text-align: center;">Covering 1000 plus cities</p>
+                <input list="city" name="city" class="form-control" style="margin-bottom: 1rem;margin-top: 1rem;">
+                    <datalist id="city">
                         {% for city in cities %}
                             <option value="{{city}}">{{city}}</option>
                         {% endfor %}
                     </datalist>
-                    <button type="submit" id="submit" name="submit" value="Search" class="btn btn-info btn-block my-4">Submit</button>
-                </form>
+                <button type="submit" class="btn btn-primary" style="display: block;margin: 0 auto;">Search</button>
             </div>
         </div>
+    </form>
     </div>
 
     {% if result == True %}
-    <div class="container-fluid" id="result" style="margin-top: 1rem;">
+    <div class="container-fluid" id="result" style="margin-top: 1rem;margin-bottom: 2rem;">
         <div class="row">
             <div class="col-md-6" style="margin: 0 auto;">
-                <h1 class="h1-responsive" style="margin: 0 auto;text-align: center;">Search Result for {{city}}</h1>
+                <h1 class="h1-responsive" style="margin: 0 auto;text-align: center;">Search Result for <u>{{city}}</u></h1>
                 <hr>
                 <ul class="list-group">
+                    <li class="list-group-item" style="text-align: center;font-size: 2rem;">
+                        <i class="fas fa-temperature-high"></i>
+                        <i class="fas fa-cloud-sun"></i>
+                        <i class="fas fa-wind"></i>
+                    </li>
+
                     <li class="list-group-item"><b>Temperature</b> {{temp}} Degree Celcius</li>
-                    <li class="list-group-item"><b>Minimum Temperature</b> {{mintemp}} Degree Celcius</li>
-                    <li class="list-group-item"><b>Maximum Temperature</b> {{maxtemp}} Degree Celcius</li>
                     <li class="list-group-item"><b>Humidity</b> {{humidity}} Percent</li>
                     <li class="list-group-item"><b>WindSpeed</b> {{windspeed}} Kilometers Per Hour</li>
                   </ul>
@@ -95,44 +86,17 @@
         </div>
     </div>
     {% endif %}
-
-    <div class="container-fluid" id="about" style="margin-top: 1rem;">
-        <div class="row">
-            <div class="col-md-6" style="margin: 0 auto;">
-                <h1 class="h1-responsive" style="margin: 0 auto;text-align: center;">About</h1>
-                <hr>
-                <p class="lead" style="margin: 0 auto;text-align: center;">
-                    This Django Weather App is simply build to get weather forecast based on location
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="page-footer font-small blue" style="margin-top: 25rem;">
-        <div class="col-md-6" style="margin: 0 auto;">
-            <a href="https://github.com/IshjotSingh97"
-                style="margin: 0 auto;display: block;text-align: center;color:white;font-weight:bold;"><i
-                    class="fab fa-github"></i> Github Profile</a>
-            <a href="https://mdbootstrap.com/"
-                style="margin: 0 auto;display: block;text-align: center;color:white;font-weight:bold;">MD Bootstrap</a>
-            <a href="https://www.freepik.com/free-photos-vectors/business"
-                style="margin: 0 auto;display: block;text-align: center;color:white;font-weight:bold;">Business vector
-                created by pikisuperstar - www.freepik.com</a>
-        </div>
-    </div>
-    <!-- Footer -->
-    <!-- JQuery -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
 </body>
 
 </html>
