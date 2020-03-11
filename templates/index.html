@@ -23,7 +23,7 @@
     </nav>
 
     {% if error == True %}
-    <div class="container-fluid" id="error" style="margin-top: 1rem;margin-bottom: 1rem;">
+    <div class="container" id="error" style="margin-top: 1rem;margin-bottom: 1rem;">
         <div class="row">
             <div class="alert alert-danger alert-dismissible fade show col-md-6" role="alert" style="margin:0 auto;">
                 <p>No Such Location Found / Location Missing In Our Database</p>
@@ -35,7 +35,7 @@
     </div>
     {% endif %}
     {% if result == True %}
-    <div class="container-fluid" id="error" style="margin-top: 1rem;margin-bottom: 1rem;">
+    <div class="container" id="error" style="margin-top: 1rem;margin-bottom: 1rem;">
         <div class="row">
             <div class="alert alert-success alert-dismissible fade show col-md-6" role="alert" style="margin:0 auto;">
                 <p>Result Found ! Scroll Below To View</p>
@@ -52,8 +52,8 @@
         <form action="{% url 'search' %}" method="GET">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title" style="text-align: center;">Search for Indian Weather</h5>
-                <p class="card-text" style="text-align: center;">Covering 1000 plus cities</p>
+                <h5 class="card-title" style="text-align: center;">Search For Indian Weather</h5>
+                <p class="card-text" style="text-align: center;">Covering 1000 Plus Cities</p>
                 <input list="city" name="city" class="form-control" style="margin-bottom: 1rem;margin-top: 1rem;">
                     <datalist id="city">
                         {% for city in cities %}
