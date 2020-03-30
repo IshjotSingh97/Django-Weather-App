@@ -21,7 +21,6 @@ def search(request):
     if request.method == "GET":
         try:
             city=request.GET['city']
-            print(city)
             API_KEY="3891916b2f364e56d63c5d9ee9a57228"
             urlPart1 = "https://api.openweathermap.org/data/2.5/weather?appid="+str(API_KEY)
             urlPart2 = "&q="+str(city)+"&units=metric"
@@ -38,6 +37,7 @@ def search(request):
             "windspeed" : result["wind"]["speed"],
             "cities" : cities
             }
+            
             return render(request,"index.html",context=mydict)
         except:
             mydict ={
